@@ -5,14 +5,17 @@ services:
     image: postgres:13.0-alpine
     volumes:
       - /var/lib/postgresql/data/
-    env_file:
+    env_file:      
       - ./.env
   web:
-    build: ../api_yamdb/
+    image: mir32/infra_web:latest
     restart: always
     volumes:
-      - static_value:/app/static/
-      - media_value:/app/media/
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
+    ports:
+      - "8000:8000"
+
     depends_on:
       - db
     env_file:
@@ -25,7 +28,7 @@ services:
       - "80:80"
 
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./default.conf:/etc/nginx/conf.d/default.conf
       - static_value:/var/html/static/
       - media_value:/var/html/media/
 
