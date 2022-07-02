@@ -1,6 +1,7 @@
 ## Название проекта
 **«YaMDb API»** - проект YaMDb собирает отзывы пользователей на различные произведения.
 ![yamdb_workflow](https://github.com/mirmir32/yamdb_final/workflows/yamdb_workflow/badge.svg)
+---
 
 **Возможности:**<br>
 :black_small_square: Регистрация на сайте, получение токена, изменение данных своей учетной записи<br>
