@@ -13,7 +13,7 @@ services:
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/
-      - ./static/redoc.yaml:/app/static/redoc.yaml
+      - ./static/redoc.yaml:/app/static/
     ports:
       - "8000:8000"
 
