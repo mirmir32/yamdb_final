@@ -20,7 +20,7 @@ git clone https://github.com/Amaterasq/infra_sp2.git
 2. Создать .env файл внутри директории infra (на одном уровне с docker-compose.yaml)
 Пример .env файла:
 ```sh
-SECRET_KEY = 'абракадаб№№№ра'
+SECRET_KEY = 'абракадаб№№№ра123'
 DB_ENGINE=django.db.backends.postgresql
 DB_NAME=postgres
 POSTGRES_USER=postgres
