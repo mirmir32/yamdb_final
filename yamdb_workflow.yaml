@@ -39,7 +39,6 @@ jobs:
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         with:
-          context: ./api_yamdb
           push: true
           tags: mir32/yamdb_final:latest
   deploy:
@@ -57,7 +56,7 @@ jobs:
           script: |
             sudo docker-compose stop
             sudo docker-compose rm web
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/api_yamdb:latest
+            sudo docker pull mir32/api_yamdb:latest
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
