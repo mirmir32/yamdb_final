@@ -1,7 +1,7 @@
 ## Название проекта
 **«YaMDb API»** - проект YaMDb собирает отзывы пользователей на различные произведения.
 ---
-Проект доступен по следующей ссылке <http://51.250.96.8/redoc/>
+Проект доступен по следующей ссылке: <http://51.250.96.8/redoc/>
 ---
 ![yamdb_workflow](https://github.com/mirmir32/yamdb_final/workflows/yamdb_workflow/badge.svg)
 ---
