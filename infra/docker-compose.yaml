@@ -8,7 +8,7 @@ services:
     env_file:      
       - ./.env
   web:
-    image: mir32/yamdb_final:latest
+    image: mir32/infra_web:latest
     restart: always
     volumes:
       - static_value:/app/static/
