@@ -41,7 +41,7 @@ jobs:
         with:
           context: ./api_yamdb/
           push: true
-          tags: mir32/infra_web:latest
+          tags: mir32/yamdb_final:latest
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
@@ -55,6 +55,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
+            sudo docker pull mir32/yamdb_final:latest
             sudo docker-compose stop
             sudo docker-compose rm web
             touch .env
