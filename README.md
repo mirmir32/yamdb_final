@@ -7,62 +7,83 @@
 ![yamdb_workflow](https://github.com/mirmir32/yamdb_final/workflows/yamdb_workflow/badge.svg)
 ---
 
-**Возможности:**<br>
-:black_small_square: Регистрация на сайте, получение токена, изменение данных своей учетной записи<br>
-:black_small_square: Раздаление прав пользователей согласно, назначенной ему роли<br>
-:black_small_square: Возможность, согласно авторизации выполнять следующие дествия: получать, добавлять и удалять - категорию, жанр, произведение, отзыв и комментарий<br>
-:black_small_square: Администрирование пользователями<br><br>
+## Возможности проекта YaMDb
 
-## Инструкции по запуску
-1. Склонировать репозиторий через консоль:
-```sh
-git clone https://github.com/Amaterasq/infra_sp2.git
-```
-2. Создать .env файл внутри директории infra (на одном уровне с docker-compose.yaml)
-Пример .env файла:
-```sh
-SECRET_KEY = 'абракадаб№№№ра155523'
-DB_ENGINE=django.db.backends.postgresql
-DB_NAME=postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=123
-DB_HOST=db
-DB_PORT=5432
-```
-3. Запуск тестов (опционально, если не нужно - переходите к следующему шагу)
-Создать и активировать виртуальное пространство, установить зависимости.<br>
+- Свободная регистрация пользователей
+- Получение токена с помощью кода, высылаемого на почту при регистрации
+- Система ролей пользователя
+- Добавление различных жанров и категорий произведений
+- Добавление произведений, с возможностью выбора категории и нескольких жанров
+- Публикация отзывов к произведениям
+- Публикация комментариев к отзывам
+
+## Особенности CI & CD
+
+- Автоматический запуск тестов **flake8**, **pytest** при обновлении проекта
+- Автоматическое обновление образа в Docker Hub **
+- Автоматический деплой проекта на сервер и его запуск в Docker **
+- Отправка сообщения в Telegram об успешном запуске проекта на рабочем сервере (у вас должен быть чат с вашим ботом) **
+
+****только при мерже pull request в ветку main**
+
+## Технологии
+
+- Python 3.9
+- Django 3.2
+- Django REST framework 3.12.4
+- PostgreSQL 13.0
+- Gunicorn 20.0.4
+- nginx 1.21.3
+- Docker
+- GitHub Actions
+
+## Установка и запуск проекта
+
+Скопируйте содержимое папки **infra/** на свой сервер
 
 ```sh
-cd infra_sp2
-python -m venv venv
-source venv/Scripts/activate
-cd api_yamdb
-pip install -r requirements.txt
-cd ..
-pytest
+scp infra/docker-compose.yaml <ваш_логин_на_сервере>@<адрес_вашего_сервера>:~/
+scp infra/nginx/default.conf <ваш_логин_на_сервере>@<адрес_вашего_сервера>:~/nginx/
 ```
 
-4. Запуск Docker контейнеров:
-Убедиться, что Docker установлен и готов к работе
+Зайдите на свой удаленный сервер и установите Docker
+
 ```sh
-docker --version
+ssh <ваш_логин_на_сервере>@<адрес_вашего_сервера>
+sudo apt install docker-ce docker-compose -y
 ```
-Запустите docker-compose
+
+Добавьте в настройках к репозитарию следующие Actions secrets:
+
+```
+HOST                   # адрес вашего удаленного сервера
+USERNAME               # ваш логин на удаленном сервере
+SSH_KEY                # ваш секретный ключ ssh
+PASSPHRASE             # фраза-пароль при создании ssh ключа
+DOCKERHUB_USERNAME     # ваш логин на docker.com
+DOCKERHUB_TOKEN        # ваш пароль на docker.com
+TELEGRAM_TO            # id вашего аккаунта в telegram (узнать можно у бота @userinfobot)
+TELEGRAM_TOKEN         # токен для доступа к вашему боту (узнать можно у бота @BotFather)
+SECRET_KEY             # ключ для генерации хэша Django
+DEBUG                  # значение Debug
+DB_ENGINE              # укажите используемую БД
+DB_NAME                # имя базы данных
+POSTGRES_USER          # логин для подключения к БД
+POSTGRES_PASSWORD      # пароль для подключения к БД (установите свой)
+DB_HOST                # название сервиса (контейнера) БД
+DB_PORT                # порт для подключения к БД 
+EMAIL_HOST             # адрес сервера исходящей почты
+EMAIL_PORT             # порт сервера исходящей почты
+EMAIL_HOST_USER        # логин для авторизации на почтовом сервере
+EMAIL_HOST_PASSWORD    # пароль для авторизации на почтовом сервере
+```
+
+## Документации проекта YaMDb
+
+При развернутом проекте перейдите по адресу в браузере:
+
 ```sh
-cd infra/
-docker-compose up -d
-```
-5. Выполните миграции, создайте суперпользователя и перенесите статику:
-```sh
-docker-compose exec web python manage.py migrate
-docker-compose exec web python manage.py createsuperuser
-docker-compose exec web python manage.py collectstatic --no-input
-```
-6. Наполните базу данных тестовыми данными:
-```sh
-docker-compose exec web python manage.py dbfill
-```
-7. Проверьте доступность сервиса
-```sh
-http://localhost/admin
-```
+http://<адрес_вашего_сервера>/redoc/
+
+## Авторы:
+Kuzin Anatoliy, Zhirkov Pavel, Matsakova Aysa
