@@ -84,6 +84,7 @@ EMAIL_HOST_PASSWORD    # пароль для авторизации на поч�
 
 ```sh
 http://<адрес_вашего_сервера>/redoc/
+```
 
 ## Авторы:
 Kuzin Anatoliy, Zhirkov Pavel, Matsakova Aysa
